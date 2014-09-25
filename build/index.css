@@ -33,9 +33,9 @@ h3 {
 }
 
 .header {
-    text-align: center;
+    text-align: left;
+    margin-left: 10px;    
     top: auto;
-    margin: 3em auto;
 }
 
 .sidebar {
@@ -81,4 +81,20 @@ h3 {
 .nav-item a:focus {
     border: 2px solid rgb(61, 146, 201);
     text-decoration: none;
+}
+
+[contenteditable="true"]:active,
+[contenteditable="true"]:focus{
+  border:none;
+  outline:none;
+}
+
+.fname {
+    width: 250px;
+    padding: 5px;
+}
+
+.fname[placeholder]:empty:before {
+    content: attr(placeholder);
+    color: red; 
 }

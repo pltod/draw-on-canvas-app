@@ -23,24 +23,37 @@
           <h2 class="brand-tagline">...on your canvas</h2>
           <br>            
           <h4 class="brand-tagline">How it works?</h4>            
-          <p>1. Choose your color <input id="colorPicker" type="color" value="#62a2fc"></p>
-          <p>2. Click on three different places inside the rectangle on the right to draw your triangle. Draw as many triangles as you want.</p>
-          <p>3. Reset/Store/Open via buttons bellow</p>
+          <p>1. Choose triangle color <input id="colorPicker" type="color" value="#62a2fc"></p>
+          <p>2. Click on three different places inside the rectangle on the right to draw a triangle. Draw as many triangles as you want.</p>
+          <p>3. Available operations:</p>
+
           <nav class="nav">
             <ul class="nav-list">
               <li class="nav-item">
-                <a id="reset" class="pure-button">Reset</a>
+                <a id="reset" class="pure-button">Reset</a> to start new drawing
               </li>
+              <br>
               <li class="nav-item">
-                <a id="store" class="pure-button">Store</a>
+                <a id="store" class="pure-button">Store</a> with name
+                <div id="fname" class="fname" placeholder="click here to name the drawing" contenteditable="true"></div>
               </li>
+              <br>
               <li class="nav-item">
-                <a id="open" class="pure-button">Open</a>
+                <a id="open" class="pure-button">Open</a> selected
+                <br>
+                Choose from the current savings: 
+                <select id="selectFile">
+                  <option value="test">test</option>
+                  <option value="test1">test1</option>
+                  <option value="e">e</option>
+                  <option value="new">new</option>                  
+                </select>
               </li>
             </ul>
           </nav>
         </div>
       </div>
+
       <canvas id="canvas" width="800px" height="800px" class="content"></canvas>    
     </div>
     
