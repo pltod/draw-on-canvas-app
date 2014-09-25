@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "underscore": "^1.7.0",
-    "js-csp": "^0.2.3"
+    "js-csp": "0.2.3"
   },
   "devDependencies": {
     "browserify": "^5.12.0",
