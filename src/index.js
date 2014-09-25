@@ -5,10 +5,11 @@ var start = csp.go;
 var storage = require("./storage");
 var producers = require("./producers");
 var cutil = require("./canvas-util");
+
 var selectFile = document.getElementById("selectFile");
+var colorPicker = document.getElementById("colorPicker");
 
 // STATE
-var currentColor = "#62a2fc";
 var fileNameToSave = document.getElementById("fname");
 var fileNameToOpen = ""
 
@@ -25,6 +26,13 @@ start(colorPickerHandler);
 
 // INITIALIZATION
 initSelectBox();
+initColorPicker();
+
+function initColorPicker() {
+  var defaultColor = "#62a2fc";
+  colorPicker.value = defaultColor;
+}
+
 function initSelectBox() {
   var drawingNames = storage.getAllDrawingNames();
   if (!_.isEmpty(drawingNames)) {
@@ -43,7 +51,7 @@ function initSelectBox() {
 function *colorPickerHandler() {
   while (true) {
     var event = yield csp.take(producers.channelColorPicker);
-    event.srcElement ? currentColor = event.srcElement.value : currentColor = event.target.value
+    event.srcElement ? colorPicker.value = event.srcElement.value : colorPicker.value = event.target.value
   }
 }
 
@@ -91,7 +99,7 @@ function *canvasClickHandler() {
       counter++;
     } else {
       points.push(cutil.getCoordinates(event)); 
-      cutil.drawTriangle(points, currentColor);
+      cutil.drawTriangle(points, colorPicker.value);
       counter = 1;
       points = [];
     }
