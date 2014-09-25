@@ -56,9 +56,7 @@ start(function*() {
 start(function*() {
   while (true) {
     var event = yield csp.take(channelColorPicker);
-    //currentColor = event.srcElement.value;
-    //console.log(event.srcElement.value);
-    console.log(event)
+    event.srcElement ? currentColor = event.srcElement.value : currentColor = event.target.value
   }
 });
 
