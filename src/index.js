@@ -1,10 +1,11 @@
 // LIBS
+var _ = require("underscore");
 var csp = require("js-csp");
 var start = csp.go;
 var storage = require("./storage");
 var producers = require("./producers");
 var cutil = require("./canvas-util");
-
+var selectFile = document.getElementById("selectFile");
 
 // STATE
 var currentColor = "#62a2fc";
@@ -19,8 +20,19 @@ start(resetButtonHandler);
 start(storeButtonHandler);
 start(openButtonHandler);
 start(colorPickerHandler);
+initSelectBox();
 
 
+// INITIALIZATION
+function initSelectBox() {
+  var drawingNames = storage.getAllDrawingNames();
+  if (!_.isEmpty(drawingNames)) {
+    var html = _.reduce(drawingNames, function (memo, name) {
+      return memo.concat("<option value=" + name + ">" + name + "</option>");
+    }, "");
+    selectFile.innerHTML = html;
+  }  
+}
 
 // LOGIC
 function *colorPickerHandler() {
@@ -43,6 +55,7 @@ function *storeButtonHandler() {
     var event = yield csp.take(producers.channelStoreButton);
     storage.save(fileNameToSave.innerHTML, canvas.toDataURL());
     fileNameToSave.innerHTML = "";
+    initSelectBox();
   }
 }
 

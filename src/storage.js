@@ -15,6 +15,12 @@ function findDrawingByName(drawings, drawingName) {
 }
 
 module.exports = {
+  getAllDrawingNames: function () {
+    var drawings = getDrawingsFromLocalStorage();
+    return _.map(drawings, function (drawing) {
+      return drawing.name
+    })
+  },  
   save: function (drawingName, data) {
     var drawings = getDrawingsFromLocalStorage();
     var drawing;
