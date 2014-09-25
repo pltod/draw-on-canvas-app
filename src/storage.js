@@ -1,12 +1,16 @@
 var _ = require("underscore");
 
 function getDrawingsFromLocalStorage() {
-  var drawings = [];
   var currentDrawings = localStorage["drawings"];
-  if (currentDrawings) {
-    drawings = JSON.parse(currentDrawings);
-  }
-  return drawings;
+  if (currentDrawings === undefined 
+    || currentDrawings === null
+    || currentDrawings === "null"
+    || currentDrawings === ""
+    || ! currentDrawings instanceof Array ) {
+      return [];
+    } else {
+      return JSON.parse(currentDrawings);
+    }
 }
 
 function findDrawingByName(drawings, drawingName) {
@@ -44,12 +48,14 @@ module.exports = {
     if (drawingName) {
       drawing = findDrawingByName(drawings, drawingName);
       if (!drawing) {
-        alert("Drawing with such name not found!")
+        alert("Drawing with such name not found!");
+        return null;
       } else {
         return drawing.pic;
       }
     } else {
       alert('Select file to open!');
-    } 
+      return null;
+    }
   }
 }

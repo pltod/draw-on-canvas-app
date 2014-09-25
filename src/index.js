@@ -20,14 +20,19 @@ start(resetButtonHandler);
 start(storeButtonHandler);
 start(openButtonHandler);
 start(colorPickerHandler);
-initSelectBox();
+
 
 
 // INITIALIZATION
+initSelectBox();
 function initSelectBox() {
   var drawingNames = storage.getAllDrawingNames();
   if (!_.isEmpty(drawingNames)) {
-    var html = _.reduce(drawingNames, function (memo, name) {
+    var html = _.reduce(drawingNames, function (memo, name, index) {
+      if (index == 0) {
+        //Sets the current selection to the first file in the list after each reinitialisation
+        fileNameToOpen = name;
+      }
       return memo.concat("<option value=" + name + ">" + name + "</option>");
     }, "");
     selectFile.innerHTML = html;
@@ -46,7 +51,9 @@ function *openButtonHandler() {
   while (true) {
     var event = yield csp.take(producers.channelOpenButton);
     var drawing = storage.find(fileNameToOpen);
-    cutil.visualiseDrawing(drawing);
+    if (null !== drawing) {
+      cutil.visualiseDrawing(drawing);
+    }
   }
 }
 
