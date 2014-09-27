@@ -39,6 +39,7 @@ function initSelectBox() {
     var html = _.reduce(drawingNames, function (memo, name, index) {
       if (index == 0) {
         //Sets the current selection to the first file in the list after each reinitialisation
+        console.log(name);
         fileNameToOpen = name;
       }
       return memo.concat("<option value=" + name + ">" + name + "</option>");
@@ -68,9 +69,13 @@ function *openButtonHandler() {
 function *storeButtonHandler() {
   while (true) {
     var event = yield csp.take(producers.channelStoreButton);
-    storage.save(fileNameToSave.innerHTML, canvas.toDataURL());
-    fileNameToSave.innerHTML = "";
-    initSelectBox();
+    if (hasWhiteSpace(fileNameToSave.innerHTML)) {
+      alert('Please do not use spaces in your file names! Letters and numbers are ok!')
+    } else {
+      storage.save(fileNameToSave.innerHTML, canvas.toDataURL());
+      fileNameToSave.innerHTML = "";
+      initSelectBox();
+    }
   }
 }
 
@@ -104,4 +109,10 @@ function *canvasClickHandler() {
       points = [];
     }
   }
+}
+
+// UTIL
+
+function hasWhiteSpace(s) {
+  return s.indexOf(' ') >= 0;
 }
