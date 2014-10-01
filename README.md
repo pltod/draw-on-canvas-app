@@ -25,6 +25,8 @@ Demo: http://pltod.github.io/blog/demos/canvas/
 
 * Several HTML5 features are used:
 
+> Canvas
+
 > Color Picker
 
 > Content Editable
